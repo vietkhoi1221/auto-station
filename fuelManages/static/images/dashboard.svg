@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.178 47.177">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path id="dashboard" class="cls-1" d="M3,29.21H23.968V3H3ZM3,50.177H23.968V34.452H3Zm26.21,0H50.177V23.968H29.21ZM29.21,3V18.726H50.177V3Z" transform="translate(-3 -3)"/>
+</svg>

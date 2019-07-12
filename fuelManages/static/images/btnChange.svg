@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73 73">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0d9b79;
+      }
+
+      .cls-2 {
+        fill: #23c181;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="btnChange" transform="translate(-1019 -342)">
+    <g id="btnChange-2" data-name="btnChange" transform="translate(1024 345.8)">
+      <path id="Path_106" data-name="Path 106" class="cls-1" d="M351.21,55.742,347.342,59.4H342.4l8.811-8.6,8.7,8.918h-4.942Z" transform="translate(-296.414 -42.938)"/>
+      <path id="Path_107" data-name="Path 107" class="cls-2" d="M383.068,50.8l8.7,8.918h-4.942l-3.761-3.975L379.2,59.4" transform="translate(-328.271 -42.938)"/>
+      <path id="Path_108" data-name="Path 108" class="cls-1" d="M351.21,137.235l-3.868,3.868H342.4l8.811-8.7,8.7,8.7h-4.942Z" transform="translate(-296.414 -113.579)"/>
+      <g id="Group_197" data-name="Group 197" transform="translate(0 1.2)">
+        <path id="Path_109" data-name="Path 109" class="cls-2" d="M383.068,132.4l8.7,8.7h-4.942l-3.761-3.868L379.2,141.1" transform="translate(-328.271 -114.779)"/>
+        <path id="Path_110" data-name="Path 110" class="cls-2" d="M47.061,32.9a15.311,15.311,0,0,1-30.622-.107,15.43,15.43,0,0,1,14.29-15.15V1.2A31.6,31.6,0,0,0,31.8,64.378,31.993,31.993,0,0,0,63.5,32.9H47.061Z" transform="translate(0 -1.2)"/>
+      </g>
+      <path id="Path_111" data-name="Path 111" class="cls-1" d="M.8,236.507a31.5,31.5,0,0,0,31.7,31.481,31.921,31.921,0,0,0,31.7-31.481H47.753a15.311,15.311,0,0,1-30.622-.107" transform="translate(-0.693 -203.611)"/>
+    </g>
+    <rect id="Rectangle_152" data-name="Rectangle 152" class="cls-3" width="73" height="73" transform="translate(1019 342)"/>
+  </g>
+</svg>

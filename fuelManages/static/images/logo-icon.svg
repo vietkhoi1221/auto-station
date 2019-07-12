@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95.381 47.755">
+  <defs>
+    <style>
+      .cls-1, .cls-7 {
+        fill: #61d46d;
+      }
+
+      .cls-2 {
+        fill: #f9e78d;
+      }
+
+      .cls-3 {
+        fill: #83e68d;
+      }
+
+      .cls-4 {
+        fill: #f8b8bd;
+      }
+
+      .cls-5 {
+        fill: #495059;
+      }
+
+      .cls-6 {
+        fill: #8d4330;
+        opacity: 0.15;
+      }
+
+      .cls-7 {
+        font-size: 17px;
+        font-family: ForteMT, Forte;
+      }
+    </style>
+  </defs>
+  <g id="logo-icon" transform="translate(-152)">
+    <g id="Group_294" data-name="Group 294" transform="translate(221.277 0)">
+      <path id="Path_1809" data-name="Path 1809" class="cls-1" d="M20.982,68.065a7.684,7.684,0,0,1-1.444,3.188,1.163,1.163,0,0,1-1.618.175c-3.165-2.475-4.878-6.179-5.385-11.746a.969.969,0,0,0-1.618-.627C6.848,62.767.17,69.953-.021,81.207A13.2,13.2,0,0,0,13.106,94.746,13.054,13.054,0,0,0,26.081,81.691c0-3.014-.381-6.662-3.934-13.761A.626.626,0,0,0,20.982,68.065Z" transform="translate(0.022 -54.134)"/>
+      <path id="Path_1810" data-name="Path 1810" class="cls-2" d="M113.765,266.692c-.214-4.005-3.648-4.909-4.735-7.955a.771.771,0,0,0-1.261-.309A11.5,11.5,0,0,0,104.2,267.1a4.786,4.786,0,0,0,4.791,4.791A4.88,4.88,0,0,0,113.765,266.692Z" transform="translate(-95.934 -237.731)"/>
+      <path id="Path_1811" data-name="Path 1811" class="cls-3" d="M215.871,9.873a.5.5,0,0,1-.872.23c-1.277-1.5-2.427-3.775-1.174-6.226.579-1.134,1.547-1.951,1.777-3.529a.451.451,0,0,1,.793-.23c1.182,1.372,2.506,3.752,1.523,5.465A14.32,14.32,0,0,0,215.871,9.873Z" transform="translate(-196.367 0.045)"/>
+      <g id="Group_292" data-name="Group 292" transform="translate(1.049 27.644)">
+        <ellipse id="Ellipse_179" data-name="Ellipse 179" class="cls-4" cx="3.236" cy="2.578" rx="3.236" ry="2.578"/>
+        <ellipse id="Ellipse_180" data-name="Ellipse 180" class="cls-4" cx="3.236" cy="2.578" rx="3.236" ry="2.578" transform="translate(17.536)"/>
+      </g>
+      <g id="Group_293" data-name="Group 293" transform="translate(5.578 25.907)">
+        <path id="Path_1812" data-name="Path 1812" class="cls-5" d="M70.895,328.932a.6.6,0,0,1-.595-.595v-1.142a.595.595,0,0,1,1.19,0v1.142A.594.594,0,0,1,70.895,328.932Z" transform="translate(-70.3 -326.6)"/>
+        <path id="Path_1813" data-name="Path 1813" class="cls-5" d="M244.395,328.932a.6.6,0,0,1-.595-.595v-1.142a.595.595,0,0,1,1.19,0v1.142A.594.594,0,0,1,244.395,328.932Z" transform="translate(-230.039 -326.6)"/>
+        <path id="Path_1814" data-name="Path 1814" class="cls-5" d="M136.565,343.677a2.99,2.99,0,0,1-2.26-1.031.6.6,0,1,1,.9-.785,1.8,1.8,0,0,0,2.728,0,.6.6,0,0,1,.9.785A2.965,2.965,0,0,1,136.565,343.677Z" transform="translate(-129.094 -340.464)"/>
+      </g>
+      <path id="Path_1815" data-name="Path 1815" class="cls-6" d="M22.036,139.1c-22.589.872-19.63-18.655-14.887-28.2a28.535,28.535,0,0,0-7.17,18.274,13.2,13.2,0,0,0,13.126,13.539A13.005,13.005,0,0,0,22.036,139.1Z" transform="translate(0.022 -102.101)"/>
+    </g>
+    <g id="Group_295" data-name="Group 295" transform="translate(152 7.933)">
+      <text id="Gas_" data-name="Gas " class="cls-7" transform="translate(0 15)"><tspan x="0" y="0">Gas </tspan></text>
+      <text id="Station" class="cls-7" transform="translate(13.882 35.823)"><tspan x="0" y="0">Station</tspan></text>
+    </g>
+  </g>
+</svg>

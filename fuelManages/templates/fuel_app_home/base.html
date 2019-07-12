@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="base" content="width = device-width, initial.scale = 1.0" >
+    <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<style>
+    .search input[type=text] {
+    position: absolute;
+    width: 400px;
+    box-sizing: border-box;
+    border: 0 solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    }
+    .search{
+        position: absolute;
+        margin-top: 13px;
+        margin-left: 20px;
+        {#background-image: url("{% static 'images/baseline-search-24px.svg' %}");#}
+    }
+</style>
+<head>
+    <div class="banner">
+        <form class="search">
+            <input type="text" id="searchbar" onkeyup="myFunction()" name="search">
+        </form>
+        <div>
+            <img class="email" src="{% static 'images/mail.svg' %}"/>
+        </div>
+        <div>
+            <img class="notifi" src="{% static 'images/noti.svg' %} "/>
+        </div>
+        <div>
+            <img class="user" src="{% static 'images/avatar.svg' %} "/>
+        </div>
+        <div>
+            <img class="menu-btn" id = "open-menu-main" src="{% static 'images/menu-btn1.svg' %} "/>
+        </div>
+        <div class="infor-user">
+            <h3 class="user-name">{{ name }}</h3>
+            <h3 class="user_email">{{ email }}</h3>
+        </div>
+    </div>
+</head>
+<body>
+     {% csrf_token %}
+     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+     <script>
+      var config = {
+        apiKey: "AIzaSyB6HP8cPu07lHPqTXDcUPENEBsosa5g0Yc",
+        authDomain: "fuelapp-c00b1.firebaseapp.com",
+        databaseURL: "https://fuelapp-c00b1.firebaseio.com",
+        projectId: "fuelapp-c00b1",
+        storageBucket: "fuelapp-c00b1.appspot.com",
+        messagingSenderId: "448961224175"
+      };
+      firebase.initializeApp(config);
+     </script>
+     <div class="container-content" id="container-content">
+        {% block content %}
+        {% endblock content %}
+     </div>
+    <div>
+        {% block menu %}
+        {% endblock menu %}
+    </div>
+    <nav id = "overlay" class="overlay">
+        <img class="close-btn" id="close-menu-main" src="{% static 'images/close-btn.svg' %}"/>
+        <ul class="item-over" >
+            <li>
+               <a href="#"> Station 1
+               </a>
+            </li>
+            <li>
+               <a href="#"> Station 2
+               </a>
+            </li>
+            <li>
+               <a href="#"> Applications
+               </a>
+            </li>
+            <li>
+               <a href="#"> Contact Us
+               </a>
+            </li>
+        </ul>
+
+    </nav>
+    <script>
+        var overlay = document.getElementById('overlay');
+        var closeBtn = document.getElementById('close-menu-main');
+
+        document.getElementById('open-menu-main').addEventListener('click', function(){
+            overlay.classList.add('show-menu');
+        })
+
+        document.getElementById('close-menu-main').addEventListener('click', function(){
+            overlay.classList.remove('show-menu');
+        })
+    </script>
+</body>
+</html>

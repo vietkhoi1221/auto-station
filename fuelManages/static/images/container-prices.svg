@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 287.489 175.856">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #bff098;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #707070;
+      }
+
+      .cls-4 {
+        filter: url(#Rectangle_129);
+      }
+
+      .cls-5 {
+        filter: url(#Rectangle_130);
+      }
+    </style>
+    <filter id="Rectangle_130" x="0" y="4.278" width="287.489" height="171.578" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_129" x="39.945" y="0" width="82.711" height="82.711" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="container-prices" transform="translate(-765.277 -69.956)">
+    <g class="cls-5" transform="matrix(1, 0, 0, 1, 765.28, 69.96)">
+      <rect id="Rectangle_130-2" data-name="Rectangle 130" class="cls-1" width="242.489" height="126.578" rx="3" transform="translate(20.5 21.78)"/>
+    </g>
+    <g class="cls-4" transform="matrix(1, 0, 0, 1, 765.28, 69.96)">
+      <rect id="Rectangle_129-2" data-name="Rectangle 129" class="cls-2" width="64.711" height="64.711" rx="3" transform="translate(48.94 4)"/>
+    </g>
+    <line id="Line_76" data-name="Line 76" class="cls-3" x2="186.311" transform="translate(813.867 182.6)"/>
+  </g>
+</svg>

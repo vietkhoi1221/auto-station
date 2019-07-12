@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="manageHome" content="width = device-width, initial.scale = 1.0" >
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div class="banner-container">
+        <div class="banner-container-logo"></div>
+        <div class="banner-container-item">
+            <a class="active">HOME</a>
+            <a>INTRODUCE</a>
+            <a>APP</a>
+            <a>ABOUT</a>
+        </div>
+        <div class="banner-container-signin">
+            <button class="btn-signin" >SIGN IN</button>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="intro-container">
+            <div class="intro-container-text">
+                <div class="intro-container-text-highlight"></div>
+                    <h1>CHANGE EVERY THINGS IN YOUR LIFE</h1>
+                <div class="intro-container-text-body">
+                    <h2>"<simpl></simpl>Simple payment is the thing to implementing it"</h2>
+                </div>
+            </div>
+            <div class="intro-container-btn">
+                <button class="intro-container-btn-start waves-effect" onclick="window.location.href = '/login'">
+                    Get started
+                </button>
+                <button class="intro-container-btn-play">
+                    <img src="{% static 'images/text-btn-play.svg' %}" class="icon-play">
+                </button>
+            </div>
+            <div class="intro-container-img">
+                <img src="{% static 'images/intro-img.svg' %}">
+            </div>
+        </div>
+        <center><img src="{% static 'images/homeImages/imgfeaturehome.svg' %}"></center>
+        <div class="row-1-feature">
+
+            <div class="col-f1">
+                <div class="col-f1-img">
+                    <img src="{% static 'images/homeImages/imgscanhome.svg' %}">
+                </div>
+                <div class="col-f1-text"></div>
+            </div>
+            <div class="col-f2">
+                <div class="col-f2-img">
+                    <img src="{% static 'images/homeImages/imgdatahome.svg' %}">
+                </div>
+                <div class="col-f2-text"></div>
+            </div>
+            <div class="col-f3">
+                <div class="col-f3-img">
+                    <img src="{% static 'images/homeImages/imgaccounthome.svg' %}">
+                </div>
+                <div class="col-f3-text"></div>
+            </div>
+        </div>
+        <center><img src="{% static 'images/homeImages/imgtoolhome.svg' %}"></center>
+        <div class="row-2-tools">
+            <div class="row-t1">
+                <div class="col-t1-text">
+                    <div class="row-t1-text-highlight">
+                    </div>
+                    <div class="row-t1-text-body">
+                    </div>
+                    <div class="row-t1-text-button">
+                        <button type="button" class="waves-effect"></button>
+                    </div>
+                </div>
+                <div class="col-t1-img">
+                </div>
+            </div>
+            <div class="row-t2">
+                <div class="col-t2-text">
+                    <div class="row-t2-text-highlight"></div>
+                    <div class="row-t2-text-body"></div>
+                    <div class="row-t2-text-button"></div>
+                </div>
+                <div class="col-t2-img"></div>
+            </div>
+
+        </div>
+
+        <div class="row-3-question">
+            <div class="row-3-question-text"></div>
+            <div class="row-3-question-fill"></div>
+            <div class="row-3-question-sent">
+                <div class="row-3-question-sent-email"></div>
+                <div class="row-3-question-sent-btn"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-container">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends 'fuel_app_home/base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/vehicals.css' %}">
+    <title>Locations</title>
+    <div id="map" ></div>
+     <script>
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: -34.397, lng: 150.644},
+              zoom: 8
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0cEXgQEh1pXEF02J8jvqevcQjn6sYgu8&callback=initMap">
+    </script>
+{% endblock %}
+
+{% block menu %}
+<div  style="background-color: #3B4D49;width: 216px;height: 669px;position: fixed;">
+        <center><img class="logo" src="{% static 'images/fuel_icon.png' %}"/></center>
+        <ul class="menu">
+        <li>
+            <a href="/login/manage_home">
+                <img class="icon-item" src="{% static 'images/dashboard.svg' %}"/>
+                Market
+            </a>
+        </li>
+        <li>
+            <a  href="/login/employee/">
+                <img class="icon-item" src="{% static 'images/employee.svg' %}"/>
+                Employee
+            </a>
+        </li>
+        <li>
+            <a class="active" href="/login/locations/">
+                <img class="icon-item" src="{% static 'images/location.svg' %}"/>
+                Locations
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img class="icon-item" src="{% static 'images/his1.svg' %}"/>
+                History
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img class="icon-item" src="{% static 'images/help.svg' %}"/>
+                Help
+            </a>
+        </li>
+    </ul>
+    </div>
+{% endblock menu %}

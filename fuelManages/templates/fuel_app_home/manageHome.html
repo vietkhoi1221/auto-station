@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="manageHome" content="width = device-width, initial.scale = 1.0" >
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" rel="stylesheet" id="bootstrap-css">
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/manageHome.css'%}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <script src="{% static 'js/bootbox.min.js' %}"></script>
+    <script src="{% static 'js/bootbox.locales.min.js' %}"></script>
+
+
+    <title>Home manage</title>
+
+</head>
+<style>
+    input[type=text] {
+    position: absolute;
+    width: 400px;
+    box-sizing: border-box;
+    border: 0 solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+
+    }
+    .input-search{
+        padding: 12px 20px 12px 40px;
+        background-image: url("{% static 'images/baseline-search-24px.svg' %}");
+    }
+    .search{
+        position: absolute;
+        margin-top: 13px;
+        margin-left: 20px;
+    }
+    .show-menu1{
+    display: block;
+    animation: slide-menu 1s forwards;
+    }
+</style>
+<head>
+    <script>
+        var station = "trụ " + {{ station }}
+    </script>
+
+    <script>
+        history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', function (event)
+        {
+          history.pushState(null, document.title, location.href);
+        });
+    </script>
+    <div class="banner">
+        <div id="search" class="search">
+
+        </div>
+        <div>
+            <img class="email" src="{% static 'images/mail.svg' %}"/>
+        </div>
+        <div>
+            <img class="notifi" src="{% static 'images/noti.svg' %} "/>
+        </div>
+        <div>
+            <img id="user" class="user" src="{% static 'images/avatar.svg' %} "/>
+        </div>
+        <div>
+            <img class="menu-btn" id = "open-menu-main" src="{% static 'images/menu-btn1.svg' %} "/>
+        </div>
+        <div class="infor-user">
+            <h3 id="name1" class="user-name">{{ name }}</h3>
+            <h3 class="user_email" id="user_email">{{ email }}</h3>
+        </div>
+    </div>
+    <script>
+        var emailAdmin = document.getElementById('user_email').innerText
+    </script>
+    <div class="box-profiles" id="box-profiles">
+        <div class="header-box-container">
+            <div class="box-profiles-container">
+                <div>
+                <img id="user" class="img-box-admin user" src="{% static 'images/avatar.svg' %} "/>
+                </div>
+                <div class="infor-admin-box">
+                    <h3 id="nameAdmin" class="user-name-admin">{{ name }}</h3>
+                    <h3 class="user-email-admin">Station manager</h3>
+                </div>
+            </div>
+            <button class="btn-logout-user" onclick="window.location.href ='/login/'">
+                Logout
+            </button>
+        </div>
+        <div class="body-box">
+            <div class="body-box-col-1">
+                <h3 class="body-txt-top activity user-name-admin">Activity</h3>
+                <h4 class="txt-body-design activity user-name-admin">Messages</h4>
+                <h4 class="txt-body-design activity user-name-admin">Card lost</h4>
+            </div>
+            <div class="body-box-col-2">
+                <h3 class="body-box-col-2-txt-val">9</h3>
+                <h3 class="body-box-col-2-txt-val">3</h3>
+            </div>
+        </div>
+
+    </div>
+        <script >
+        var overBoxPro = document.getElementById('box-profiles');
+        overBoxPro.style.display = "none";
+        document.getElementById('user').addEventListener('click', function(){
+          if (overBoxPro.style.display === "none") {
+            overBoxPro.style.display = "block";
+          }else{overBoxPro.style.display = "none";}
+        });
+    </script>
+</head>
+<body id="body">
+     {% csrf_token %}
+     <!-- <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script> -->
+    <script>
+      // Initialize Firebase
+      var config = {
+    apiKey: "AIzaSyB6HP8cPu07lHPqTXDcUPENEBsosa5g0Yc",
+    authDomain: "fuelapp-c00b1.firebaseapp.com",
+    databaseURL: "https://fuelapp-c00b1.firebaseio.com",
+    projectId: "fuelapp-c00b1",
+    storageBucket: "fuelapp-c00b1.appspot.com",
+    messagingSenderId: "448961224175"
+  };
+firebase.initializeApp(config);
+      var gasP = firebase.database().ref('prices/Gasoline');
+        gasP.on('value', function(snapshot) {
+          document.getElementById("gasPrice").innerHTML = snapshot.val() + "VND";
+          var d = new Date();
+          document.getElementById("up-gas").innerHTML = "Updated " + d.getHours()
+              + ":" + d.getMinutes();
+        });
+      var oilP = firebase.database().ref('prices/Oil');
+        oilP.on('value', function(snapshot) {
+          document.getElementById("oilPrice").innerHTML = snapshot.val() + "VND";
+          var d = new Date();
+          document.getElementById("up-oil").innerHTML = "Updated " + d.getHours()
+              + ":" + d.getMinutes();
+        });
+      var ttG = firebase.database().ref('trụ ' + {{ station }} + '/fuel_amount/Gasoline');
+        ttG.on('value', function(snapshot) {
+          document.getElementById("ttGas").innerHTML = snapshot.val() + "lit";
+          var d = new Date();
+          document.getElementById("up-ttGas").innerHTML = "Updated " + d.getHours()
+              + ":" + d.getMinutes();
+        });
+      var ttO = firebase.database().ref('trụ ' + {{ station }} + '/fuel_amount/Oil');
+        ttO.on('value', function(snapshot) {
+          document.getElementById("ttOil").innerHTML = snapshot.val() + "lit";
+          var d = new Date();
+          document.getElementById("up-ttOil").innerHTML = "Updated " + d.getHours()
+              + ":" + d.getMinutes();
+        });
+    </script>
+
+     <div id="container-content" class="container-content">
+            <div id="container-price" class="container-price" >
+                {% for toGas, toOil, oilPric, gasPric in data_banner %}
+                    <div id="oil-price" class="oil-price" style="background-image: url({% static 'images/con-gas.svg' %})">
+                        <h3 id="gasPrice" class="pric">{{ gasPric }}VND</h3>
+                        <h3 id="up-gas" class="update-text-top"></h3>
+                    </div>
+                    <div id="oil-price" class="oil-price" style="background-image: url({% static 'images/con-oil.svg' %})">
+                        <h3 id="oilPrice" class="pric">{{ oilPric }}VND</h3>
+                        <h3 id="up-oil" class="update-text-top"></h3>
+                    </div>
+                    <div id="oil-price" class="oil-price" style="background-image: url({% static 'images/togas.svg' %})">
+                        <h3 id= "ttGas" class="total">{{ toGas }}lit</h3>
+                        <h3 id="up-ttGas" class="update-text-top"></h3>
+                    </div>
+                    <div id="oil-price" class="oil-price" style="background-image: url({% static 'images/tooil.svg' %})">
+                        <h3 id="ttOil" class="total">{{ toOil }}lit</h3>
+                        <h3 id="up-ttOil" class="update-text-top"></h3>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="container-benefit">
+
+                <div class="benefit-holder bene">
+                    <label class="lb-choose-day">
+                      <select class="ch-day-income"  name="ch-day-income">
+                        <option value="1/2019">1/2019</option>
+                        <option value="2/2019">2/2019</option>
+                        <option value="3/2019">3/2019</option>
+                        <option value="4/2019">4/2019</option>
+                        <option value="5/2019">5/2019</option>
+                        <option value="6/2019">6/2019</option>
+                        <option value="7/2019">7/2019</option>
+                        <option value="8/2019">8/2019</option>
+                        <option value="9/2019">9/2019</option>
+                        <option value="10/2019">10/2019</option>
+                        <option value="11/2019">11/2019</option>
+                        <option value="12/2019">12/2019</option>
+                      </select>
+                    </label>
+
+                    <script src="{% static 'js/SetOptionDayIncome.js' %}"></script>
+                    <canvas id="bene-chart" width="700" height="300"></canvas>
+                    <script src="{% static 'js/totalIncome.js' %}"></script>
+{#                <script src="{% static 'js/graphBenefit.js' %}"></script>#}
+
+
+            </div>
+                <div class = "total-visit">
+                    <canvas id="visit-chart" width="170" height="130"></canvas>
+                    <script src="{% static 'js/graphTotal.js' %}"></script>
+                </div>
+            </div>
+            <div class="container-benefit">
+                <div class="benefit-holder amountP">
+                    <label class="lb-choose-day">
+                      <select class="ch-day"  name="ch-day">
+                        <option value="1/2019">1/2019</option>
+                        <option value="2/2019">2/2019</option>
+                        <option value="3/2019">3/2019</option>
+                        <option value="4/2019">4/2019</option>
+                        <option value="5/2019">5/2019</option>
+                        <option value="6/2019">6/2019</option>
+                        <option value="7/2019">7/2019</option>
+                        <option value="8/2019">8/2019</option>
+                        <option value="9/2019">9/2019</option>
+                        <option value="10/2019">10/2019</option>
+                        <option value="11/2019">11/2019</option>
+                        <option value="12/2019">12/2019</option>
+                      </select>
+                    </label>
+                    <script src="{% static 'js/SetOptionChooseDay.js' %}"></script>
+                <canvas id="amout-pay" width="700" height="300"></canvas>
+                <script src="{% static 'js/graphAmountPay.js' %}">
+                </script>
+            </div>
+                <div class = "total-visit long-height">
+                    <div class="list-view-holder" id="list-view-holder">
+                        <div style="width: 100%; height: 30px; border-bottom: double #565A65;">
+                            <p class="mess-holder-title">Customers lose card</p>
+                        </div>
+
+                        <div id="list-user-dash" class="list-user-dash">
+                        </div>
+                    <script src="{% static 'js/ListUserDashboard.js' %}"></script>
+                    </div>
+                </div>
+            </div>
+            <div class="container-benefit">
+                <div class="benefit-holder">
+                    <div class="list-view-holder" id="list-view-holder">
+                        <div style="width: 100%; height: 30px; border-bottom: double #565A65;">
+                            <p class="mess-holder-title">Customers feedback</p>
+                        </div>
+                        <div id="list-feedback" class="scroll-view list-feedback">
+                        </div>
+
+                    <script src="{% static 'js/UserMessageQuestions.js' %}"></script>
+                    </div>
+                </div>
+            </div>
+            <div class="container-benefit">
+                <div class="benefit-holder tw-col-body">
+                    <div class="list-view-holder full-col" id="list-view-holder">
+                        <div style="width: 100%; height: 30px; border-bottom: double #565A65;">
+                            <p class="lost-holder-title mess-holder-title">Customers</p>
+                        </div>
+                        <div id="list-card-lost" class="scroll-view list-card-lost">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 30px"></div>
+     </div>
+     <div id="change-prGas" class="change-prGas" style="background-image: url({% static 'images/prchanges.svg' %})">
+        <img class="close-btn-change" id="close-change-pr" src="{% static 'images/close-btn-change.svg' %}"/>
+        <label id="lChange-Gas" for="gas-change" style="font-family: 'Roboto Light'" >Gasoline price</label>
+        <input id="gas-change" name="gas-change">
+        <label id="lChange-Oil" for="oil-change" style="font-family: 'Roboto Light'">Oil price</label>
+        <input id="oil-change" name="oil-change">
+
+        <label id="lChange-ttGas" for="ttgas-change" style="font-family: 'Roboto Light'" >Total Gasoline</label>
+        <input id="ttgas-change" name="ttgas-change">
+        <label id="lChange-ttOil" for="ttoil-change" style="font-family: 'Roboto Light'">Total Oil</label>
+        <input id="ttoil-change" name="ttoil-change">
+
+        <button id="btn-change" class="btn-change" style="background-image: url({% static 'images/btnChange.svg' %})"></button>
+        <script src="{% static 'js/StationChangeInfor.js' %}"></script>
+
+     </div>
+
+     <div id="reply-mess" class="reply-mess" style="background-image: url({% static 'images/homeImages/help_center_bg.svg' %})">
+        <img class="close-btn-change" id="close-reply-container" src="{% static 'images/close-btn-change.svg' %}"/>
+        <label id="titleMess" class="titleMess" for="titleMess" style="font-family: 'Roboto Light'" >Title</label>
+        <input id="contentMess" class="contentMess" name="contentMess">
+        <label id="replyLabel" class="replyLabel" for="replyLabel" style="font-family: 'Roboto Light'">Reply content</label>
+         <textarea id="replyContent" class="replyContent" name="replyContent"></textarea>
+
+        <button id="btn-send-reply" class="btn-send-reply" style="background-image: url({% static 'images/btnChange.svg' %})"></button>
+     </div>
+
+     <div id="application-content" style="background-image: url({% static 'images/QRApp.svg' %})">
+         <img class="close-btn-app" id="close-qr-app" src="{% static 'images/close-btn-white.svg' %}"/>
+     </div>
+    <div  style="background-color: #3B4D49;width: 216px;height: 669px;position: fixed;">
+        <center><img class="logo" src="{% static 'images/fuel_icon.png' %}"/></center>
+        <ul class="menu">
+        <li>
+            <a class="active" href="#">
+                <img class="icon-item" src="{% static 'images/dashboard.svg' %}"/>
+                Market
+            </a>
+        </li>
+        <li>
+            <a href="/login/employee/">
+                <img class="icon-item" src="{% static 'images/employee.svg' %}"/>
+                Users
+            </a>
+        </li>
+        <li>
+            <a href="/login/locations/">
+                <img class="icon-item" src="{% static 'images/location.svg' %}"/>
+                Locations
+            </a>
+        </li>
+        <li>
+            <a href="/login/history/">
+                <img class="icon-item" src="{% static 'images/his1.svg' %}"/>
+                History
+            </a>
+        </li>
+        <li>
+            <a href="/login/response_help/">
+                <img class="icon-item" src="{% static 'images/help.svg' %}"/>
+                Help
+            </a>
+        </li>
+    </ul>
+    </div>
+
+    <nav id = "overlay" class="overlay">
+        <img class="close-btn" id="close-menu-main" src="{% static 'images/close-btn.svg' %}"/>
+        <ul class="item-over" >
+            <li>
+               <a href="#"> Home
+               </a>
+            </li>
+            <li>
+               <a href="#"> Introduce
+               </a>
+            </li>
+            <li>
+               <a id="appMain"> Applications
+               </a>
+            </li>
+            <li>
+               <a href="#"> Contact Us
+               </a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <script >
+        var overQr = document.getElementById('application-content');
+        overQr.style.display = "none";
+        document.getElementById('appMain').addEventListener('click', function(){
+            overlay.classList.remove('show-menu');
+            if (overQr.style.display === "none") {
+            overQr.style.display = "block";
+          }
+        });
+        document.getElementById('close-qr-app').addEventListener('click', function(){
+            overQr.style.display = "none";
+        });
+    </script>
+    <script>
+        var overlay = document.getElementById('overlay');
+        var closeBtn = document.getElementById('close-menu-main');
+
+        document.getElementById('open-menu-main').addEventListener('click', function(){
+            overlay.classList.add('show-menu');
+        })
+
+        document.getElementById('close-menu-main').addEventListener('click', function(){
+            overlay.classList.remove('show-menu');
+        })
+    </script>
+
+    <script >
+
+        var overChange = document.getElementById('change-prGas');
+        overChange.style.display = "none";
+        document.getElementById('container-price').addEventListener('click', function(){
+          if (overChange.style.display === "none") {
+            overChange.style.display = "block";
+          }
+        });
+
+        document.getElementById('close-change-pr').addEventListener('click', function(){
+            overChange.style.display = "none";
+        })
+    </script>
+    <script >
+        var overMessContent = document.getElementById('reply-mess');
+        overMessContent.style.display = "none";
+        document.getElementById('close-reply-container').addEventListener('click', function(){
+            overMessContent.style.display = "none";
+        })
+    </script>
+
+    <script>
+        function demo() {
+
+          console.log('checking network...');
+            var getStatus = firebase.database().ref(station + '/networking');
+            getStatus.on('value', function(snapshot) {
+                if(snapshot.val() === 0){
+                    console.log("Station network not working!")
+                    var alertD = document.createElement("span")
+                    alertD.className = "alert alert-danger";
+                    alertD.style.zIndex = '9';
+                    alertD.innerText = "Network not working"
+                    document.getElementById('container-content').appendChild(alertD)
+                }
+                else if(snapshot.val() === 1){
+                    console.log("Station network working!")
+                }
+            });
+        }
+
+        demo();
+    </script>
+</body>
+</html>
+
+

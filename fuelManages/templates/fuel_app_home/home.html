@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="manageHome" content="width = device-width, initial.scale = 1.0" >
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div class="banner-container">
+        <div class="banner-container-logo">
+            <img src="{% static 'images/logo-icon.svg' %}">
+        </div>
+        <div class="banner-container-item">
+            <a class="active">HOME</a>
+            <a>INTRODUCE</a>
+            <a>APP</a>
+            <a>ABOUT</a>
+        </div>
+        <div class="banner-container-signin">
+            <button class="btn-signin" onclick="visitPage()">SIGN IN</button>
+            <script>
+                function visitPage(){
+                    window.location='login/';
+                }
+            </script>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="intro-container">
+            <div class="intro-container-text">
+                <div class="intro-container-text-highlight"></div>
+                    <h1>CHANGE EVERY THINGS IN YOUR LIFE</h1>
+                <div class="intro-container-text-body">
+                    <h2>"ify management-simplify payments"</h2>
+                </div>
+            </div>
+            <div class="intro-container-btn">
+                <button class="intro-container-btn-start">
+                    Get started
+                </button>
+                <button class="intro-container-btn-play">
+                    <img src="{% static 'images/text-btn-play.svg'%}" class="icon-play">
+                </button>
+            </div>
+            <div class="intro-container-img">
+                <img src="{% static 'images/intro-img.svg'%}">
+            </div>
+        </div>
+        <div class="row-1-feature">
+            <div class="col-f1">
+                <div class="col-f1-img">
+                    <img src="{% static 'images/card-pay.svg' %}">
+                </div>
+                <div class="col-f1-text">
+                    <h3>CARD PAYMENT</h3>
+                    <h4>Only with a card associated with the account you can purchase at any fuel station</h4>
+                </div>
+            </div>
+            <div class="col-f2">
+                <div class="col-f2-img">
+                    <img src="{% static 'images/real-time-data.svg' %}">
+                </div>
+                <div class="col-f2-text">
+                    <h3>REAL-TIME DATABASE</h3>
+                    <h4>Data storage technology that allows synchronization between the objects with real time</h4>
+                </div>
+            </div>
+            <div class="col-f3">
+                <div class="col-f3-img">
+                    <img src="{% static 'images/safety-acc.svg' %}">
+                </div>
+                <div class="col-f3-text">
+                    <h3>SAFETY ACCOUNT</h3>
+                    <h4>All account information is absolutely safe and confidential</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-2-tools">
+            <div class="row-t1">
+                <div class="col-t1-text">
+                    <div class="row-t1-text-highlight"></div>
+                    <div class="row-t1-text-body"></div>
+                    <div class="row-t1-text-button"></div>
+                </div>
+                <div class="col-t1-img"></div>
+            </div>
+            <div class="row-t2">
+                <div class="col-t2-text">
+                    <div class="row-t2-text-highlight"></div>
+                    <div class="row-t2-text-body"></div>
+                    <div class="row-t2-text-button"></div>
+                </div>
+                <div class="col-t2-img"></div>
+            </div>
+
+        </div>
+
+        <div class="row-3-question">
+            <div class="row-3-question-text"></div>
+            <div class="row-3-question-fill"></div>
+            <div class="row-3-question-sent">
+                <div class="row-3-question-sent-email"></div>
+                <div class="row-3-question-sent-btn"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-container">
+
+    </div>
+</body>
+</html>

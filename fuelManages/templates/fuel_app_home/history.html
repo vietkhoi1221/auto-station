@@ -1,0 +1,536 @@
+{% extends 'fuel_app_home/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <script src = "{% static 'js/jquery-3.3.1.js'%}"></script>
+    <script src = "{% static 'js/jquery.dataTables.min.js'%}"></script>
+    <script src = "{% static 'js/dataTables.bootstrap.min.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/histories.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css'%}">
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/sum().js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+    <link href="{% static 'css/buttons.dataTables.min.css'%}" rel="stylesheet">
+
+        <script>
+        //////////////////////////////////////////
+        var dataAmount = [];
+        var dataEmail = [];
+        var dataMoney = [];
+        var dataTime = [];
+        var number = [];
+        var dataType = [];
+        var i = 1;
+        var childDate, childMonth, childYear;
+        var listAcc = firebase.database().ref('trụ ' + {{ station }} + '/history_changes/payment');
+        listAcc.once('value', function(snapshot) {
+            snapshot.forEach(function (date) {
+                date.forEach(function (time) {
+                    time.forEach(function (data) {
+                        number.push(i);
+                        var childItem = data.val()
+                        dataEmail.push(childItem.email);
+                        dataAmount.push(childItem.Amount);
+                        dataMoney.push(childItem.money);
+                        dataType.push(childItem.type)
+                        var dateValue = date.key.split("_")
+                        dataTime.push(dateValue[2] + "/" + dateValue[1] + "/" + dateValue[0] + " " + time.key)
+                        i++;
+                    });
+                });
+            });
+            // var myTB = document.getElementById('tb-pr');
+            $(document).ready(function() {
+                $('#tb-pr tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="pass" placeholder="Search '+title+'" />' );
+            } );
+            var tb = $('#tb-pr').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+            var count;
+            //console.log(dataTime.length)
+            for (count = 0; count < dataTime.length; count++) {
+                tb.row.add([
+                number[count],
+                dataEmail[count],
+                dataTime[count],
+                Math.round(parseFloat(dataAmount[count]) * 1000)/1000+" (lit)",
+                dataMoney[count] + " (vnd)",
+                dataType[count]
+            ]).draw(false);
+
+            }
+            tb.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        } );
+
+        });
+        ////////////////////////////////////////////
+        var toUser = [];
+        var fromUser = [];
+        var transferMoney = [];
+        var transferTime = [];
+        var transferNumber = [];
+        var listAcc = firebase.database().ref('trụ ' + {{ station }} + '/history_changes/transfer');
+        var j = 1;
+        listAcc.once('value', function(snapshot) {
+            snapshot.forEach(function (date) {
+                date.forEach(function (time) {
+                    time.forEach(function (data) {
+                        transferNumber.push(j)
+                        var childItem = data.val()
+                        toUser.push(childItem.to)
+                        fromUser.push(childItem.from)
+                        transferMoney.push(childItem.money)
+                        var dateValue = date.key.split("_")
+                        transferTime.push(dateValue[2] + "/" + dateValue[1] + "/" + dateValue[0] + " " + time.key)
+                        j++;
+                    });
+                });
+            });
+
+            // var myTB = document.getElementById('tb-pr');
+            $(document).ready(function() {
+                $('#tb-trans tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="pass" placeholder="Search '+title+'" />' );
+            } );
+            var tb = $('#tb-trans').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+            var count;
+            console.log(transferNumber.length)
+            for (count = 0; count < transferNumber.length; count++) {
+                tb.row.add([
+                transferNumber[count],
+                fromUser[count],
+                toUser[count],
+                // Math.round(parseFloat(dataAmount[count]) * 1000)/1000+" (lit)",
+                transferTime[count],
+                transferMoney[count] + " (vnd)"
+            ]).draw(false);
+            }
+            tb.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        } );
+
+        });
+
+        var rechargeTime = [];
+        var rechargeMoney = [];
+        var rechargeUser = [];
+        var rechargeNumber = [];
+        var rechargeSerial = [];
+        k = 1;
+        var listAcc = firebase.database().ref('trụ ' + {{ station }} + '/history_changes/recharge');
+        listAcc.once('value', function(snapshot) {
+            snapshot.forEach(function (date) {
+                date.forEach(function (time) {
+                    time.forEach(function (data) {
+                        rechargeNumber.push(k);
+                        var childItem = data.val()
+                        var dateValue = date.key.split("_")
+                        rechargeTime.push(dateValue[2] + "/" + dateValue[1] + "/" + dateValue[0] + " " + time.key)
+                        rechargeUser.push(childItem.email)
+                        rechargeMoney.push(childItem.money)
+                        rechargeSerial.push(childItem.serial)
+                        k++
+                    });
+                });
+            });
+
+            // var myTB = document.getElementById('tb-pr');
+            $(document).ready(function() {
+                $('#tb-rechar tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="pass" placeholder="Search '+title+'" />' );
+            } );
+            var tb = $('#tb-rechar').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+            var count;
+            //console.log(dataTime.length)
+            for (count = 0; count < rechargeNumber.length; count++) {
+                tb.row.add([
+                rechargeNumber[count],
+                rechargeUser[count],
+                rechargeTime[count],
+                rechargeSerial[count],
+                rechargeMoney[count] + " (vnd)"
+            ]).draw(false);
+            }
+            tb.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        } );
+
+        });
+
+
+        var addGasTime = [];
+        var gasRemain = [];
+        var gasAdd = [];
+        var addGasNumber = [];
+        var addGasEmail = [];
+        var l = 1;
+        var listAcc = firebase.database().ref('trụ ' + {{ station }} + '/history_amount_add/Gasoline');
+        listAcc.once('value', function(snapshot) {
+            snapshot.forEach(function (date) {
+                date.forEach(function (time) {
+                    // time.forEach(function (data) {
+                        addGasNumber.push(l);
+                        var childItem = time.val()
+                        var dateValue = date.key.split("_")
+                        addGasTime.push(dateValue[2] + "/" + dateValue[1] + "/" + dateValue[0] + " " + time.key)
+                        addGasEmail.push(childItem.email)
+                        gasRemain.push(childItem.amount_now)
+                        gasAdd.push(childItem.amount_add)
+                        l++
+                    // });
+                });
+            });
+
+            // var myTB = document.getElementById('tb-pr');
+            $(document).ready(function() {
+                $('#tb-gas tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="pass" placeholder="Search '+title+'" />' );
+            } );
+            var tb = $('#tb-gas').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+            var count;
+            //console.log(dataTime.length)
+            for (count = 0; count < addGasNumber.length; count++) {
+                tb.row.add([
+                addGasNumber[count],
+                addGasEmail[count],
+                addGasTime[count],
+                gasRemain[count],
+                gasAdd[count]
+            ]).draw(false);
+            }
+            tb.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        } );
+
+        });
+
+
+
+        var addOilTime = [];
+        var oilRemain = [];
+        var oilAdd = [];
+        var addOilNumber = [];
+        var addOilEmail = [];
+        var m = 1;
+        var listAcc = firebase.database().ref('trụ ' + {{ station }} + '/history_amount_add/Oil');
+        listAcc.once('value', function(snapshot) {
+            snapshot.forEach(function (date) {
+                date.forEach(function (time) {
+                    // time.forEach(function (data) {
+                        addOilNumber.push(m);
+                        var childItem = time.val()
+                        var dateValue = date.key.split("_")
+                        addOilTime.push(dateValue[2] + "/" + dateValue[1] + "/" + dateValue[0] + " " + time.key)
+                        addOilEmail.push(childItem.email)
+                        oilRemain.push(childItem.amount_now)
+                        oilAdd.push(childItem.amount_add)
+                        m++
+                    // });
+                });
+            });
+
+            // var myTB = document.getElementById('tb-pr');
+            $(document).ready(function() {
+                $('#tb-oil tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="pass" placeholder="Search '+title+'" />' );
+            } );
+            var tb = $('#tb-oil').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+            var count;
+            //console.log(dataTime.length)
+            for (count = 0; count < addOilNumber.length; count++) {
+                tb.row.add([
+                addOilNumber[count],
+                addOilEmail[count],
+                addOilTime[count],
+                oilRemain[count],
+                oilAdd[count]
+            ]).draw(false);
+            }
+            tb.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        } );
+
+        });
+    </script>
+    <script>
+        document.getElementById("searchbar").placeholder = "Search for date";
+        function myFunction() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("searchbar");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("tb-pr");
+        //   tbody = table.getElementsByTagName("tbody");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+    </script>
+    <div>
+        <h3 style = "margin-left: 30px">History purchase</h3>
+    </div>
+    <div class="table-prices">
+        <table id="tb-pr" class="tb-pr">
+            <thead>
+                <tr>
+                <th>NUM</th>
+                <th>EMAIL</th>
+                <th>TIME</th>
+                <th>AMOUNT</th>
+                <th>MONEY</th>
+                <th>TYPE</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>NUM</th>
+                    <th>EMAIL</th>
+                    <th>TIME</th>
+                    <th>AMOUNT</th>
+                    <th>MONEY</th>
+                    <th>TYPE</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div>
+        <h3 style = "margin-left: 30px" >History transfer</h3>
+    </div>
+    <div class="table-transfer table-prices">
+        <table id="tb-trans" class="tb-trans">
+            <thead>
+                <tr>
+                <th>NUM</th>
+                <th>FROM</th>
+                <th>TO</th>
+                <th>TIME</th>
+                <th>MONEY</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>NUM</th>
+                    <th>FROM</th>
+                    <th>TO</th>
+                    <th>TIME</th>
+                    <th>MONEY</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div>
+        <h3 style = "margin-left: 30px" >History recharge</h3>
+    </div>
+    <div class="table-recharge table-prices">
+        <table id="tb-rechar" class="tb-rechar">
+            <thead>
+                <tr>
+                <th>NUM</th>
+                <th>USER</th>
+                <th>TIME</th>
+                <th>SERIAL</th>
+                <th>MONEY</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>NUM</th>
+                    <th>USER</th>
+                    <th>TIME</th>
+                    <th>SERIAL</th>
+                    <th>MONEY</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div>
+        <h3 style = "margin-left: 30px" >History add gas</h3>
+    </div>
+    <div class="table-gas table-prices">
+        <table id="tb-gas" class="tb-gas">
+            <thead>
+                <tr>
+                <th>NUM</th>
+                <th>EMAIL MANAGER</th>
+                <th>TIME</th>
+                <th>AMOUNT REMAIN</th>
+                <th>AMOUNT ADD</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>NUM</th>
+                    <th>EMAIL MANAGER</th>
+                    <th>TIME</th>
+                    <th>AMOUNT REMAIN</th>
+                    <th>AMOUNT ADD</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div>
+        <h3 style = "margin-left: 30px" >History add oil</h3>
+    </div>
+    <div class="table-oil table-prices">
+        <table id="tb-oil" class="tb-oil">
+            <thead>
+                <tr>
+                <th>NUM</th>
+                <th>EMAIL MANAGER</th>
+                <th>TIME</th>
+                <th>AMOUNT REMAIN</th>
+                <th>AMOUNT ADD</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>NUM</th>
+                    <th>EMAIL MANAGER</th>
+                    <th>TIME</th>
+                    <th>AMOUNT REMAIN</th>
+                    <th>AMOUNT ADD</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+{% endblock content %}
+{% block menu %}
+<div  style="background-color: #3B4D49;width: 216px;height: 669px;position: fixed;">
+        <center><img class="logo" src="{% static 'images/fuel_icon.png' %}"/></center>
+        <ul class="menu">
+        <li>
+            <a href="/login/manage_home">
+                <img class="icon-item" src="{% static 'images/dashboard.svg' %}"/>
+                Market
+            </a>
+        </li>
+        <li>
+            <a href="/login/employee/">
+                <img class="icon-item" src="{% static 'images/employee.svg' %}"/>
+                Users
+            </a>
+        </li>
+        <li>
+            <a href="/login/locations/">
+                <img class="icon-item" src="{% static 'images/location.svg' %}"/>
+                Locations
+            </a>
+        </li>
+        <li>
+            <a class="active" href="/login/history/">
+                <img class="icon-item" src="{% static 'images/his1.svg' %}"/>
+                History
+            </a>
+        </li>
+        <li>
+            <a href="/login/response_help/">
+                <img class="icon-item" src="{% static 'images/help.svg' %}"/>
+                Help
+            </a>
+        </li>
+    </ul>
+    </div>
+{% endblock menu %}

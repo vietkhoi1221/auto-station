@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+<style>
+body{
+    background-image: linear-gradient(#BFF098, #6FD6FF);
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=email], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20pt;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+div {
+    font-family: "Roboto Light";
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 20px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+h3 {
+    margin-top: 10px;
+    font-style: normal;
+    font-family: Roboto;
+    font-size: 20pt;
+    color: #00EC91;
+}
+</style>
+<body>
+
+<div class="container-form">
+    <center><h3 >Sign Up to Fuel manage</h3></center>
+  <form action="/action_page.php">
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+    <label for="fname">Email</label>
+    <input type="email" id="email-reg" name="email-reg" placeholder="Your email..">
+
+    <label for="lname">Password</label>
+    <input type="password" id="password-reg" name="password-reg" placeholder="Your password..">
+
+    <label for="lname">Repeat password</label>
+    <input type="password" id="re-password-reg" name="re-password-reg" placeholder="Reapeat your password..">
+    <label for="country">Country</label>
+    <select id="country" class="country" name="country">
+      <option value="australia">Viet Nam</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
+
+    <input type="submit" value="Sign Up">
+  </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'fuel_app_home/base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/help_center.css' %}">
+
+    <title>Help center</title>
+
+    <div class="list">
+        <div class="user-messages-container">
+        <div class="item-user-messages" >
+            <div class="avt-item-user-messages">
+                <img src="{% static 'images/avatar.svg' %}">
+            </div>
+            <div class="infor-item-user-messages">
+                <h1 class="name">Tuan Khanh</h1>
+                <h2 class="subject">Unlock</h2>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block menu %}
+<div  style="background-color: #3B4D49;width: 216px;height: 669px;position: fixed;">
+        <center><img class="logo" src="{% static 'images/fuel_icon.png' %}"/></center>
+        <ul class="menu">
+        <li>
+            <a href="/login/manage_home">
+                <img class="icon-item" src="{% static 'images/dashboard.svg' %}"/>
+                Market
+            </a>
+        </li>
+        <li>
+            <a  href="/login/employee/">
+                <img class="icon-item" src="{% static 'images/employee.svg' %}"/>
+                Employee
+            </a>
+        </li>
+        <li>
+            <a  href="/login/locations/">
+                <img class="icon-item" src="{% static 'images/location.svg' %}"/>
+                Locations
+            </a>
+        </li>
+        <li>
+            <a href="/login/history/">
+                <img class="icon-item" src="{% static 'images/his1.svg' %}"/>
+                History
+            </a>
+        </li>
+        <li>
+            <a class="active" href="/login/response_help/">
+                <img class="icon-item" src="{% static 'images/help.svg' %}"/>
+                Help
+            </a>
+        </li>
+    </ul>
+    </div>
+{% endblock menu %}

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 252 143.086">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #62f384;
+      }
+
+      .cls-2 {
+        font-size: 14px;
+        font-family: Roboto-Light, Roboto;
+        font-weight: 300;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle_153);
+      }
+    </style>
+    <filter id="Rectangle_153" x="0" y="20.086" width="252" height="123" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="box-profiles" transform="translate(-1010.5 -47.414)">
+    <g id="box-banner">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, 1010.5, 47.41)">
+        <rect id="Rectangle_153-2" data-name="Rectangle 153" class="cls-1" width="231" height="102" rx="10" transform="translate(8.5 26.59)"/>
+      </g>
+      <path id="Path_113" data-name="Path 113" class="cls-1" d="M14407.013,2603.588a64.79,64.79,0,0,0,16.277-4.069c13.412-5.629,31.14-15.644,33.809-21.515,4.118-9.061,7.527,23.472,43.77,25.584" transform="translate(-13324 -2529)"/>
+    </g>
+    <text id="User_name:" data-name="User name:" class="cls-2" transform="translate(1035.355 106.615)"><tspan x="0" y="0">User name:</tspan></text>
+    <text id="Address:_" data-name="Address: " class="cls-2" transform="translate(1035.355 129.615)"><tspan x="0" y="0">Address: </tspan></text>
+    <text id="Sex:" class="cls-2" transform="translate(1035.355 152.615)"><tspan x="0" y="0">Sex:</tspan></text>
+  </g>
+</svg>

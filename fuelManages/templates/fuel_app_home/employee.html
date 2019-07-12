@@ -1,0 +1,466 @@
+{% extends 'fuel_app_home/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <title>Users</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{% static 'css/employee.css'%}">
+    <script src = "{% static 'js/jquery-3.3.1.js'%}"></script>
+    <script src = "{% static 'js/jquery.dataTables.min.js'%}"></script>
+    <script src = "{% static 'js/dataTables.bootstrap.min.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css'%}">
+    <style>
+        .view-profile-user{
+            position: absolute;
+            width: 99%;
+            height: 280px;
+            background-image: url("{% static 'images/view-profile.svg' %}");
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+    <script>
+        var dataUsersName = [];
+        var dataEmail = [];
+        var dataMoney = [];
+        var dataAddress = [];
+        var number = [];
+        var itemDrop = ["View profile", "Add card", "Send message"]
+        var i = 1;
+        var k = 0;
+        var getEmail;
+        var getName;
+
+        var listAcc = firebase.database().ref('Account');
+        listAcc.once('value', function(snapshot) {
+            snapshot.forEach(function (data) {
+                var child = data.val();
+                number.push(i);
+                dataEmail.push(child.Email);
+                dataUsersName.push(child.Name);
+                dataMoney.push(child.money);
+                dataAddress.push(child.location);
+                i++;
+            });
+            set(dataEmail, dataUsersName, dataMoney, dataAddress);
+        });
+
+        function set(dataEmail, dataUsersName, dataMoney, dataAddress) {
+            var count;
+            for (count = 0; count < dataEmail.length; count++) {
+                var iDiv = document.createElement('div');
+                iDiv.id = count.toString();
+                iDiv.className = 'block';
+                iDiv.style.cssFloat = 'left';
+                document.getElementsByClassName('row-2-users')[0].appendChild(iDiv);
+
+                var user_img = document.createElement('img');
+                user_img.src = '{% static 'images/user-avt.svg' %}';
+                user_img.className = 'img-avt';
+
+                var dropDiv = document.createElement('div');
+                dropDiv.id = "dropOptions" + count.toString();
+                dropDiv.className = "dropOptions";
+                dropDiv.style.display = "none";
+                document.getElementById(count.toString()).appendChild(dropDiv);
+                var p = 10;
+                for(var i = 0; i<3; i++) {
+                    var aTag = document.createElement('a');
+
+                    aTag.id = dataUsersName[count].toString() + i.toString();
+                    aTag.className = "item1";
+                    aTag.innerText = itemDrop[i];
+                    aTag.style.marginTop = p.toString() + "px";
+                    aTag.href = "#" + dataUsersName[count];
+                    aTag.onclick = function(){
+                        reply_click(this.innerText, this.href);
+                    };
+                    dropDiv.appendChild(aTag);
+                    p+=25;
+                }
+
+                var option_img = document.createElement('img');
+                option_img.src = '{% static 'images/option-user.svg' %}';
+                option_img.className = 'img-option-user';
+                option_img.id = 'img-option-user' + count.toString();
+                option_img.onclick = function () {
+                    reply_click(this.id, this.className)
+                };
+
+                var name = document.createElement('p');
+                name.id = "nameV" + count.toString();
+                name.className = "nameV";
+
+
+                var email = document.createElement('p');
+                email.id = "email" + count.toString();
+                email.className = "emailU";
+
+                var node = document.createTextNode(dataUsersName[count]);
+                var node1 = document.createTextNode(dataEmail[count]);
+
+                name.appendChild(node);
+                name.setAttribute("href", "/login/manage_home");
+                email.appendChild(node1);
+               //Thay đổi một số thuộc tính của p
+                name.appendChild(node);
+                iDiv.appendChild(user_img);
+                iDiv.appendChild(option_img);
+                iDiv.appendChild(name);
+                iDiv.appendChild(email);
+            }
+            function reply_click(clicked_id,classN, href)
+            {
+                var dropAll = document.getElementsByClassName("dropOptions");
+
+                if(classN === "img-option-user") {
+                    var getParent = document.getElementById(clicked_id.toString()).parentElement.id;
+                    getEmail = document.getElementById("email" + getParent).textContent;
+                    getName = document.getElementById("nameV" + getParent).textContent;
+                    var drop = document.getElementById("dropOptions" + getParent.toString());
+
+                    for (var i = 0; i < dropAll.length; i++){
+                            document.getElementById("dropOptions" + i.toString()).style.display = "none";
+                    }
+
+                    if (drop.style.display === "none") {
+                        drop.style.display = "block";
+                    }
+                    else {
+                        drop.style.display = "none";
+                    }
+
+                }
+                else if(classN !== "img-option-user" && clicked_id === "Add card"){
+                    makeScreen(getEmail, clicked_id)
+                }
+                else if(classN !== "img-option-user" && clicked_id === "View profile"){
+                    view_profile(getName, getEmail)
+                }
+            }
+
+            function makeScreen(email, type) {
+                var e = email.split("@");
+
+                document.getElementsByClassName("row-2-users")[0].style.display = "none";
+
+
+                var addCardContainer = document.createElement('div');
+                addCardContainer.id = "add-card-container";
+                addCardContainer.className = "add-card-container";
+
+                var bgImg = document.createElement('img');
+                bgImg.src = '{% static 'images/add_card.svg' %}';
+                bgImg.className = "bg-img-add-card";
+
+                var emailAdd = document.createElement('h2');
+                emailAdd.id = "emailAdd";
+                emailAdd.className = "emailAdd";
+                emailAdd.innerText = e[0];
+
+                var formAddContainer = document.createElement('div');
+                formAddContainer.id = "form-add-card-container";
+                formAddContainer.className = "form-add-card-container";
+
+                var lbCardNum = document.createElement('h2');
+                lbCardNum.id = "label-card-num";
+                lbCardNum.className = "label-card-num";
+                lbCardNum.innerText = "Add card numbers"
+
+                var inputCardNum = document.createElement('input')
+                inputCardNum.id = "input-card-num";
+                inputCardNum.className = "input-card-num";
+                inputCardNum.type = "text";
+                inputCardNum.name = "cardNum";
+
+                var lbCardDate = document.createElement('h2');
+                lbCardDate.id = "label-card-date";
+                lbCardDate.className = "label-card-date";
+                lbCardDate.innerText = "Date and time";
+
+                var inputCardDate = document.createElement('input');
+                inputCardDate.id = "input-card-date";
+                inputCardDate.className = "input-card-date";
+                inputCardDate.type = "text";
+                inputCardDate.name = "cardDate";
+
+                var now = new Date();
+                var date = now.getDay() + "/" + now.getMonth() + "/" + now.getFullYear()
+
+                inputCardDate.value = date;
+
+                var btnAddCard = document.createElement('button');
+                btnAddCard.id = "button-add-card";
+                btnAddCard.className = "button-add-card";
+                btnAddCard.innerHTML = "ADD";
+                btnAddCard.onclick = function(){
+                    closeAddCard(email, inputCardNum.value, date);
+                };
+
+                formAddContainer.appendChild(btnAddCard);
+                formAddContainer.appendChild(lbCardNum);
+                formAddContainer.appendChild(lbCardDate);
+                formAddContainer.appendChild(inputCardNum);
+                formAddContainer.appendChild(inputCardDate);
+                addCardContainer.appendChild(formAddContainer);
+                addCardContainer.appendChild(bgImg);
+                addCardContainer.appendChild(emailAdd);
+                document.getElementById("container-content").appendChild(addCardContainer)
+
+            }
+
+            function closeAddCard(email, value, date) {
+                var listAcc = firebase.database().ref('Account');
+                listAcc.once('value', function(snapshot) {
+                    snapshot.forEach(function (data) {
+                        var checkID = data.val();
+                        if (parseInt(checkID.RFID) === parseInt(value)){
+                            alert("trùng!!")
+                        }
+                        else {
+                            var child = data.val();
+                            if (child.Email === email) {
+                                console.log(data.key);
+                                var rfidPath = "Account/" + (data.key).toString() + "/RFID";
+                                var rfidDate = "Account/" + (data.key).toString() + "/date_creat_rfid";
+                                console.log(rfidPath);
+                                firebase.database().ref(rfidPath).set(value);
+                                firebase.database().ref(rfidDate).set(date);
+                                document.getElementsByClassName("dropOptions")[0].style.display = "none";
+                                document.getElementsByClassName("add-card-container")[0].style.display = "none";
+                                document.getElementsByClassName("row-2-users")[0].style.display = "block";
+                                alert("Add card successful!")
+                            }
+                        }
+                    });
+                    snapshot.forEach(function (data) {
+
+                    });
+
+                });
+            }
+
+            function view_profile(user, email){
+
+                    var listAcc = firebase.database().ref('Account');
+                    listAcc.once('value', function(snapshot) {
+                        snapshot.forEach(function (data) {
+                            var child = data.val();
+                            var uKey = data.key
+                            var uEmail = child.Email
+                            if(uEmail === email){
+                                $('.table-prices-user').show();
+                                v_profile(uKey)
+                            }
+                        });
+                        set(dataEmail, dataUsersName, dataMoney, dataAddress);
+                    });
+
+                    document.getElementsByClassName('row-2-users')[0].style.display ="none";
+                    document.getElementsByClassName('row-1-addUser')[0].style.display ="none";
+
+                    var viewProfileDiv = document.createElement('div');
+                    viewProfileDiv.id = "view-profile-user";
+                    viewProfileDiv.className = "view-profile-user";
+                    viewProfileDiv.style.background = '{% static 'images/view-profile.svg' %}';
+
+                    {#var profile_img = document.createElement('img');#}
+                    {#profile_img.src = '{% static 'images/view-profile.svg' %}';#}
+                    {#profile_img.className = "image-profile-user";#}
+                    {#viewProfileDiv.appendChild(profile_img);#}
+
+                    var mName = document.createElement('p');
+                    mName.className = "mName";
+                    mName.innerText = user;
+                    viewProfileDiv.appendChild(mName);
+
+                    var mEmail = document.createElement('p');
+                    mEmail.className = "mEmail label-view";
+                    mEmail.innerText = email;
+                    viewProfileDiv.appendChild(mEmail);
+
+                    var mPhone = document.createElement('p');
+                    mPhone.className = "mPhone label-view";
+                    mPhone.innerText = "0123456789";
+                    viewProfileDiv.appendChild(mPhone);
+
+                    var dateOfBirth = document.createElement('p');
+                    dateOfBirth.className = "dateOfBirth label-view";
+                    dateOfBirth.innerText = "30/2/1999";
+                    viewProfileDiv.appendChild(dateOfBirth);
+
+                    var mAddress = document.createElement('p');
+                    mAddress.className = "mAddress label-view";
+                    mAddress.innerText = "duong so 5";
+                    viewProfileDiv.appendChild(mAddress);
+
+                    var mGender = document.createElement('p');
+                    mGender.className = "mGender label-view";
+                    mGender.innerText = "Nam";
+                    viewProfileDiv.appendChild(mGender);
+
+                    document.getElementById("container-content").appendChild(viewProfileDiv)
+            }
+
+        }
+
+    </script>
+
+
+    <script>
+    $('.table-prices-user').hide();
+    function v_profile(uKey) {
+        var dataAmount1 = [];
+        var dataEmail1 = [];
+        var dataMoney1 = [];
+        var dataTime1 = [];
+        var number1 = [];
+        var j = 1;
+        var childDate, childUser, childTime;
+        var listAcc1 = firebase.database().ref('trụ 1/history_changes/payment');
+        listAcc1.once('value', function(snapshot1) {
+            snapshot1.forEach(function (date) {
+                childDate = date.key;
+                date.forEach(function (time) {
+                    childTime = time.key;
+                    time.forEach(function (user) {
+                        childUser = user.key;
+                        console.log(uKey)
+                        if(childUser === uKey){
+                            var childItem1 = user.val();
+                            number1.push(j);
+                            dataEmail1.push(childItem1.email);
+                            dataAmount1.push(childItem1.Amount);
+                            dataMoney1.push(childItem1.money);
+                            var dateValue = childDate.split("_")
+                            dataTime1.push(dateValue[2] + "/" + dateValue[1] + "/" + dateValue[0] +" " + childTime);
+                            j++;
+                            console.log(dataTime1)
+                        }
+                    });
+                });
+            });
+            // var myTB = document.getElementById('tb-pr');
+            $(document).ready(function() {
+                $('#tb-pr tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="pass" placeholder="Search '+title+'" />' );
+            } );
+            var tb = $('#tb-pr').DataTable();
+            var count1;
+            console.log(dataTime1.length)
+            for (count1 = 0; count1 < dataTime1.length; count1++) {
+
+                tb.row.add([
+                number1[count1],
+                dataEmail1[count1],
+                dataTime1[count1],
+                Math.round(parseFloat(dataAmount1[count1]) * 1000)/1000+" (lit)",
+                dataMoney1[count1] + " (vnd)"
+            ]).draw(false);
+            }
+            tb.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        } );
+
+        });
+        document.getElementById("searchbar").placeholder = "Search for name";
+        function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("searchbar");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("tb-pr");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    }
+
+</script>
+
+    <div class="row-1-addUser">
+        <button class="row-1-btn-add">Add user</button>
+    </div>
+    <div class="row-2-users" id="row-2-users">
+
+    </div>
+    <div class="table-prices-user">
+            <table id="tb-pr" class="tb-pr">
+                <thead>
+                  <tr>
+                    <th>NUM</th>
+                    <th>EMAIL</th>
+                    <th>TIME</th>
+                    <th>AMOUNT</th>
+                    <th>MONEY</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>NUM</th>
+                        <th>EMAIL</th>
+                        <th>TIME</th>
+                        <th>AMOUNT</th>
+                        <th>MONEY</th>
+                    </tr>
+                </tfoot>
+                </table>
+        </div>
+{% endblock content %}
+{% block menu %}
+<div  style="background-color: #3B4D49;width: 216px;height: 669px;position: fixed;">
+        <center><img class="logo" src="{% static 'images/fuel_icon.png' %}"/></center>
+        <ul class="menu">
+        <li>
+            <a href="/login/manage_home">
+                <img class="icon-item" src="{% static 'images/dashboard.svg' %}"/>
+                Market
+            </a>
+        </li>
+        <li>
+            <a class="active" href="/login/employee/">
+                <img class="icon-item" src="{% static 'images/employee.svg' %}"/>
+                Users
+            </a>
+        </li>
+        <li>
+            <a href="/login/locations/">
+                <img class="icon-item" src="{% static 'images/location.svg' %}"/>
+                Locations
+            </a>
+        </li>
+        <li>
+            <a  href="/login/history/">
+                <img class="icon-item" src="{% static 'images/his1.svg' %}"/>
+                History
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img class="icon-item" src="{% static 'images/help.svg' %}"/>
+                Help
+            </a>
+        </li>
+    </ul>
+    </div>
+{% endblock menu %}

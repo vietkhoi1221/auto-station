@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.745 21.745">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="mail" transform="translate(0 0)">
+    <path id="Path_87" data-name="Path 87" class="cls-1" d="M18.309,4H3.812a1.81,1.81,0,0,0-1.8,1.812L2,16.685A1.817,1.817,0,0,0,3.812,18.5h14.5a1.817,1.817,0,0,0,1.812-1.812V5.812A1.817,1.817,0,0,0,18.309,4Zm0,3.624-7.248,4.53L3.812,7.624V5.812l7.248,4.53,7.248-4.53Z" transform="translate(-0.188 -0.376)"/>
+    <path id="Path_88" data-name="Path 88" class="cls-2" d="M0,0H21.745V21.745H0Z"/>
+  </g>
+</svg>

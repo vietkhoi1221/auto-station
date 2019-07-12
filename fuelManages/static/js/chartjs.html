@@ -1,0 +1,33 @@
+            var count;
+            for (count = 0; count < dataEmail.length; count++) {
+                var iDiv = document.createElement('div');
+                iDiv.id = 'block';
+                iDiv.className = 'block';
+                iDiv.style.cssFloat = 'left';
+                document.getElementsByClassName('row-2-users')[0].appendChild(iDiv);
+
+                var user_img = document.createElement('img');
+                user_img.src = '{% static 'images/user-avt.svg' %}';
+                user_img.className = 'img-avt';
+
+                var option_img = document.createElement('img');
+                option_img.src = '{% static 'images/option-user.svg' %}';
+                option_img.className = 'img-option-user';
+                option_img.id = 'img-option-user' + count.toString();
+
+                var name = document.createElement('h1');
+                var email = document.createElement('h2');
+                var node = document.createTextNode(dataUsersName[count]);
+                var node1 = document.createTextNode(dataEmail[count]);
+
+                name.appendChild(node);
+                name.setAttribute("href", "/login/manage_home");
+                email.appendChild(node1);
+               //Thay đổi một số thuộc tính của p
+                name.appendChild(node);
+                iDiv.appendChild(user_img);
+                iDiv.appendChild(option_img);
+                iDiv.appendChild(name);
+                iDiv.appendChild(email);
+
+            }
